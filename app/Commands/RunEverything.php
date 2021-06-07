@@ -31,6 +31,8 @@ class RunEverything extends Command
     {
         $this->startTime = microtime(true);
 
+        $regions = ['Wallonia', 'Brussels', 'Flanders'];
+
         $dataDir = base_path('data/');
 
         // Wipe the database.
@@ -38,7 +40,7 @@ class RunEverything extends Command
         $this->line('Wiping database.');
 
         // Municipalities.
-        foreach (['Wallonia', 'Brussels', 'Flanders'] as $region) {
+        foreach ($regions as $region) {
             Unzipper::unzip("{$region}Municipality");
 
             $this->line("Parsing <comment>municipalities</comment> of <comment>{$region}</comment>.");

@@ -12,7 +12,6 @@ class Municipality
         public ?string $nameFr = null,
         public ?string $nameNl = null,
         public ?string $nameDe = null,
-        public ?string $nameEn = null,
         public ?string $namespace = null,
         public ?string $version = null,
     ) {
@@ -29,7 +28,6 @@ class Municipality
             'name_fr' => $this->nameFr,
             'name_nl' => $this->nameNl,
             'name_de' => $this->nameDe,
-            'name_en' => $this->nameEn,
             'nis_code' => $this->id,
             'namespace' => $this->namespace,
             'version' => $this->version,

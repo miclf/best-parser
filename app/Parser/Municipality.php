@@ -3,6 +3,7 @@
 namespace App\Parser;
 
 use XMLParser;
+use Illuminate\Support\Facades\DB;
 use App\Objects\Municipality as MunicipalityObject;
 
 class Municipality
@@ -21,8 +22,6 @@ class Municipality
     protected bool $isInMunicipalityCode = false;
     protected bool $isInMunicipalityName = false;
 
-    protected $output;
-
     /**
      * Parse an XML file of municipalities.
      */
@@ -31,11 +30,6 @@ class Municipality
         $this->startTime = microtime(true);
 
         $xmlFile = base_path("data/{$region}Municipality.xml");
-
-        // Creates or overwrites a CSV file to store the parsed data.
-        $this->output = fopen(base_path("data/municipalities.csv"), 'w');
-        // Add columns names to the CSV.
-        fputcsv($this->output, MunicipalityObject::columnNames());
 
         // Create and configure the parser.
         $parser = xml_parser_create();
@@ -105,10 +99,9 @@ class Municipality
             default => null,
         };
 
-        // We just finished parsing a municipality. Add it to the output.
+        // We just finished parsing a municipality. Add it to the database.
         if ($name === 'tns:Municipality') {
-            // echo 'Finished '.($this->currentObject->nameFr ?? '???').PHP_EOL;
-            fputcsv($this->output, $this->currentObject->toArray());
+            DB::table('municipalities')->insert($this->currentObject->toArray());
         }
     }
 

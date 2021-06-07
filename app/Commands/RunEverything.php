@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Unzipper;
+use App\Parser\Postcode as PostcodeParser;
 use LaravelZero\Framework\Commands\Command;
 use App\Parser\Municipality as MunicipalityParser;
 
@@ -47,6 +48,16 @@ class RunEverything extends Command
             (new MunicipalityParser)->parse($region);
 
             unlink("{$dataDir}{$region}Municipality.xml");
+        }
+
+        // Postcodes.
+        foreach ($regions as $region) {
+            Unzipper::unzip("{$region}Postalinfo");
+
+            $this->line("Parsing <comment>postcodes</comment> of <comment>{$region}</comment>.");
+            (new PostcodeParser)->parse($region);
+
+            unlink("{$dataDir}{$region}Postalinfo.xml");
         }
 
 

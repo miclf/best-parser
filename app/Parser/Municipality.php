@@ -27,7 +27,7 @@ class Municipality
      */
     public function parse(string $region): void
     {
-        $this->startTime = microtime(true);
+        // $this->startTime = microtime(true);
 
         $xmlFile = base_path("data/{$region}Municipality.xml");
 
@@ -55,12 +55,12 @@ class Municipality
         xml_parser_free($parser);
 
         // Display performance stats.
-        $elapsed = round(microtime(true) - $this->startTime, 3);
-        $memoryUsage = $this->getHumanReadableSize(memory_get_usage());
-        $memoryPeakUsage = $this->getHumanReadableSize(memory_get_peak_usage());
+        // $elapsed = round(microtime(true) - $this->startTime, 3);
+        // $memoryUsage = $this->getHumanReadableSize(memory_get_usage());
+        // $memoryPeakUsage = $this->getHumanReadableSize(memory_get_peak_usage());
 
-        echo "Elapsed time: {$elapsed} sec".PHP_EOL;
-        echo "Memory: {$memoryUsage} (peak {$memoryPeakUsage})".PHP_EOL;
+        // echo "Elapsed time: {$elapsed} sec".PHP_EOL;
+        // echo "Memory: {$memoryUsage} (peak {$memoryPeakUsage})".PHP_EOL;
     }
 
     /**

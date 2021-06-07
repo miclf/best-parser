@@ -1,3 +1,6 @@
+# This contains the data that is manipulated by this application.
+/data
+
 /vendor
 /.idea
 /.vscode

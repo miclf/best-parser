@@ -74,7 +74,7 @@ class Postcode
     protected function endElement(XMLParser $parser, string $name)
     {
         // Potentially set a flag to false.
-        match ($this->currentTagName) {
+        match ($name) {
             'tns:PostalInfo' => $this->isInPostalInfo = false,
             default => null,
         };

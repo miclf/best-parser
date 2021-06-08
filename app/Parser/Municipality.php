@@ -92,7 +92,7 @@ class Municipality
     protected function endElement(XMLParser $parser, string $name)
     {
         // Potentially set a flag to false.
-        match ($this->currentTagName) {
+        match ($name) {
             'tns:Municipality' => $this->isInMunicipality = false,
             'com:municipalityCode' => $this->isInMunicipalityCode = false,
             'com:municipalityName' => $this->isInMunicipalityName = false,

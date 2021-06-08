@@ -77,7 +77,7 @@ class RunEverything extends Command
         $memoryUsage = $this->getHumanReadableSize(memory_get_usage());
         $memoryPeakUsage = $this->getHumanReadableSize(memory_get_peak_usage());
 
-        echo "Elapsed time: {$elapsed} sec".PHP_EOL;
+        echo 'Elapsed time: '.$this->getHumanReadableDuration($elapsed).PHP_EOL;
         echo "Memory: {$memoryUsage} (peak {$memoryPeakUsage})".PHP_EOL;
 
         exit(0);
@@ -99,5 +99,20 @@ class RunEverything extends Command
         }
 
         return round($sizeInBytes, 2).' '.$units[$i];
+    }
+
+    /**
+     * Helper to format durations.
+     */
+    protected function getHumanReadableDuration(float $seconds): string
+    {
+        if ($seconds < 60) {
+            return "{$seconds} sec.";
+        } elseif ($seconds < 3600) {
+            $minutes = intval($seconds / 60);
+            $seconds %= 60;
+
+            return "{$minutes} min. {$seconds} sec.";
+        }
     }
 }

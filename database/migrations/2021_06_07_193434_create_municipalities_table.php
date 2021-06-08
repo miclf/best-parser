@@ -22,8 +22,6 @@ class CreateMunicipalitiesTable extends Migration
             $table->unsignedMediumInteger('nis_code')->index();
             $table->string('namespace');
             $table->string('version');
-
-            $table->timestamps();
         });
     }
 

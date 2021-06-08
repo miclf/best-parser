@@ -18,8 +18,6 @@ class CreatePostcodesTable extends Migration
             $table->unsignedSmallInteger('id')->primary();
             $table->string('namespace');
             $table->string('version');
-
-            $table->timestamps();
         });
     }
 

@@ -47,7 +47,7 @@ class RunEverything extends Command
             Unzipper::unzip("{$region}Municipality");
 
             $this->line("Parsing <comment>municipalities</comment> of <comment>{$region}</comment>.");
-            (new MunicipalityParser)->parse($region);
+            app(MunicipalityParser::class)->parse($region);
 
             unlink("{$dataDir}{$region}Municipality.xml");
         }
@@ -57,7 +57,7 @@ class RunEverything extends Command
             Unzipper::unzip("{$region}Postalinfo");
 
             $this->line("Parsing <comment>postcodes</comment> of <comment>{$region}</comment>.");
-            (new PostcodeParser)->parse($region);
+            app(PostcodeParser::class)->parse($region);
 
             unlink("{$dataDir}{$region}Postalinfo.xml");
         }
@@ -67,7 +67,7 @@ class RunEverything extends Command
             Unzipper::unzip("{$region}Streetname");
 
             $this->line("Parsing <comment>street names</comment> of <comment>{$region}</comment>.");
-            (new StreetParser)->parse($region);
+            app(StreetParser::class)->parse($region);
 
             unlink("{$dataDir}{$region}Streetname.xml");
         }

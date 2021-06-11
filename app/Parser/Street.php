@@ -9,7 +9,8 @@ use Carbon\Carbon;
 
 class Street
 {
-    protected float $startTime;
+    protected int $count = 0;
+    protected array $stuffToSave = [];
 
     protected ?string $previousTagName = null;
     protected ?string $currentTagName = null;
@@ -54,6 +55,9 @@ class Street
         }
 
         xml_parser_free($parser);
+
+        // Insert remaining stuff.
+        DB::table('streets')->insert($this->stuffToSave);
     }
 
     /**
@@ -101,7 +105,19 @@ class Street
 
         // We just finished parsing a street. Add it to the database.
         if ($name === 'tns:Streetname') {
-            DB::table('streets')->insert($this->currentObject->toArray());
+            // Increment counter.
+            $this->count++;
+
+            $this->stuffToSave[] = $this->currentObject->toArray();
+
+            // Insert everything.
+            if ($this->count === 2500) {
+                DB::table('streets')->insert($this->stuffToSave);
+
+                // Reset things.
+                $this->count = 0;
+                $this->stuffToSave = [];
+            }
         }
     }
 

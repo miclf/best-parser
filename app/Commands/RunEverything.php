@@ -4,6 +4,7 @@ namespace App\Commands;
 
 use App\Unzipper;
 use App\Parser\Street as StreetParser;
+use App\Parser\Address as AddressParser;
 use App\Parser\Postcode as PostcodeParser;
 use LaravelZero\Framework\Commands\Command;
 use App\Parser\Municipality as MunicipalityParser;
@@ -69,6 +70,16 @@ class RunEverything extends Command
             (new StreetParser)->parse($region);
 
             unlink("{$dataDir}{$region}Streetname.xml");
+        }
+
+        // Addresses.
+        foreach ($regions as $region) {
+            Unzipper::unzip("{$region}Address");
+
+            $this->line("Parsing <comment>addresses</comment> of <comment>{$region}</comment>.");
+            app(AddressParser::class)->parse($region);
+
+            unlink("{$dataDir}{$region}Address.xml");
         }
 
 
